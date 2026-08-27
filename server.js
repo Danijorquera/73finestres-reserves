@@ -1,6 +1,7 @@
 const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 app.use(express.json());
@@ -8,8 +9,13 @@ app.use(cors());
 
 // Connexió directa a Supabase
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:[Bimba0217!!]@db.kkqlxcnnrcriqbxmsjpc.supabase.co:5432/postgres',
+    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:Bimba0217!!@db.kkqlxcnnrcriqbxmsjpc.supabase.co:5432/postgres',
     ssl: { rejectUnauthorized: false }
+});
+
+// Ruta principal per mostrar el formulari visual (index.html)
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Ruta per veure taules ocupades
@@ -48,9 +54,5 @@ app.post('/api/reservations', async (req, res) => {
     }
 });
 
-// Pàgina de benvinguda a l'arrel
-app.get('/', (req, res) => {
-    res.send('API de 73 Finestres - Sistema de Reserves funcionant correctament!');
-});
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor operatiu al port ${PORT}`));
