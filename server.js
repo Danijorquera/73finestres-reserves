@@ -48,5 +48,9 @@ app.post('/api/reservations', async (req, res) => {
     }
 });
 
+// Pàgina de benvinguda a l'arrel
+app.get('/', (req, res) => {
+    res.send('API de 73 Finestres - Sistema de Reserves funcionant correctament!');
+});
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor operatiu al port ${PORT}`));
